@@ -16,10 +16,10 @@
 Пример использования:
 
 ```python
-api_key = 'your_api_key'
-user_id = 'user_telegram_id'
-response = requests.post(API_BASE_URL + '/generate', headers={'Authorization': api_key}, params={'user_id': user_id})
-print(response.json())
+api_key = 'ваш_api_ключ'
+user_id = 'идентификатор_пользователя'
+response = generate_api_key(api_key, user_id)
+print(response)
 ```
 
 #### 2. **Получение информации о кошельке**
@@ -34,10 +34,10 @@ print(response.json())
 Пример использования:
 
 ```python
-api_key = 'your_api_key'
-marker = 'your_marker'
-response = requests.get(API_BASE_URL + '/get_info', params={'api_key': api_key, 'marker': marker})
-print(response.json())
+api_key = 'ваш_api_ключ'
+marker = 'ваш_маркер'
+response = get_api_info(api_key, marker)
+print(response)
 ```
 
 #### 3. **Установка баланса кошелька**
@@ -53,12 +53,11 @@ print(response.json())
 Пример использования:
 
 ```python
-api_key = 'your_api_key'
-wallet_id = 'your_wallet_id'
+api_key = 'ваш_api_ключ'
+wallet_id = 'ваш_идентификатор_кошелька'
 new_balance = 100.0
-data = {'api_key': api_key, 'wallet_id': wallet_id, 'balance': new_balance}
-response = requests.put(API_BASE_URL + '/set_balance', json=data)
-print(response.json())
+response = set_balance(api_key, wallet_id, new_balance)
+print(response)
 ```
 
 #### 4. **Создание транзакции**
@@ -76,26 +75,24 @@ print(response.json())
 Пример использования для режима "check":
 
 ```python
-api_key = 'your_api_key'
-wallet_id = 'your_wallet_id'
+api_key = 'ваш_api_ключ'
+wallet_id = 'ваш_идентификатор_кошелька'
 transaction_amount = 50.0
-password = 'your_password'
+password = 'ваш_пароль'
 mode = 'check'
-data = {'api_key': api_key, 'wallet_id': wallet_id, 'transaction_amount': transaction_amount, 'password': password, 'mode': mode}
-response = requests.post(API_BASE_URL + '/build_transaction', json=data)
-print(response.json())
+response = build_transaction(api_key, wallet_id, transaction_amount, password, mode)
+print(response)
 ```
 
 Пример использования для режима "forward":
 
 ```python
-api_key = 'your_api_key'
-wallet_id = 'recipient_wallet_id'
+api_key = 'ваш_api_ключ'
+wallet_id = 'идентификатор_кошелька_получателя'
 transaction_amount = 50.0
 mode = 'forward'
-data = {'api_key': api_key, 'wallet_id': wallet_id, 'transaction_amount': transaction_amount, 'mode': mode}
-response = requests.post(API_BASE_URL + '/build_transaction', json=data)
-print(response.json())
+response = build_transaction(api_key, wallet_id, transaction_amount, None, mode)
+print(response)
 ```
 
 #### 5. **Получение статуса транзакции (чека)**
@@ -110,11 +107,8 @@ print(response.json())
 Пример использования:
 
 ```python
-api_key = 'your_api_key'
-check_id = 'your_check_id'
-data = {'api_key': api_key, 'check_id': check_id}
-response = requests.get(API_BASE_URL + '/transaction_status', params=data)
-print(response.json())
+api_key = 'ваш_api_ключ'
+check_id = 'ваш_идентификатор_чека'
+response = get_transaction_status(api_key, check_id)
+print(response)
 ```
-
-*Так же ознакомься с FanAPI.py. Там собраны функции для более быстрого обращения к api*
