@@ -70,38 +70,50 @@ print(response.json())
   - `wallet_id` (строка, обязательный) - Идентификатор кошелька.
   - `transaction_amount` (число, обязательный) - Сумма транзакции.
   - `password` (строка, обязательный) - Пароль для подтверждения транзакции.
-- **Возвращаемый результат:** JSON с сообщением о результате операции и идентификатором созданного чека.
+  - `mode` (строка, обязательный) - Режим транзакции ("check" для чека или "forward" для прямой транзакции).
+- **Возвращаемый результат:** JSON с сообщением о результате операции и идентификатором созданного чека (для режима "check") или информацией о выполненной транзакции (для режима "forward").
 
-Пример использования:
+Пример использования для режима "check":
 
 ```python
 api_key = 'your_api_key'
 wallet_id = 'your_wallet_id'
 transaction_amount = 50.0
 password = 'your_password'
-data = {'api_key': api_key, 'wallet_id': wallet_id, 'transaction_amount': transaction_amount, 'password': password}
+mode = 'check'
+data = {'api_key': api_key, 'wallet_id': wallet_id, 'transaction_amount': transaction_amount, 'password': password, 'mode': mode}
 response = requests.post(API_BASE_URL + '/build_transaction', json=data)
 print(response.json())
 ```
 
-#### 5. **Завершение транзакции**
+Пример использования для режима "forward":
 
-- **URL:** `/fanapi/receive_transaction`
-- **Метод:** `POST`
+```python
+api_key = 'your_api_key'
+wallet_id = 'recipient_wallet_id'
+transaction_amount = 50.0
+mode = 'forward'
+data = {'api_key': api_key, 'wallet_id': wallet_id, 'transaction_amount': transaction_amount, 'mode': mode}
+response = requests.post(API_BASE_URL + '/build_transaction', json=data)
+print(response.json())
+```
+
+#### 5. **Получение статуса транзакции (чека)**
+
+- **URL:** `/fanapi/transaction_status`
+- **Метод:** `GET`
 - **Параметры:** JSON объект с полями:
   - `api_key` (строка, обязательный) - API ключ пользователя.
   - `check_id` (строка, обязательный) - Идентификатор транзакции (чека).
-  - `password` (строка, обязательный) - Пароль для подтверждения транзакции.
-- **Возвращаемый результат:** JSON с сообщением о результате операции.
+- **Возвращаемый результат:** JSON с информацией о статусе транзакции (чека), либо сообщение об ошибке.
 
 Пример использования:
 
 ```python
 api_key = 'your_api_key'
 check_id = 'your_check_id'
-password = 'your_password'
-data = {'api_key': api_key, 'check_id': check_id, 'password': password}
-response = requests.post(API_BASE_URL + '/receive_transaction', json=data)
+data = {'api_key': api_key, 'check_id': check_id}
+response = requests.get(API_BASE_URL + '/transaction_status', params=data)
 print(response.json())
 ```
 
