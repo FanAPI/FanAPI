@@ -1,6 +1,6 @@
 import requests
 
-API_BASE_URL = 'https://41c6-77-50-109-213.ngrok-free.app/'
+API_BASE_URL = 'https://7a05-77-50-109-213.ngrok-free.app'
 
 def generate_api_key(api_key, user_id):
     response = requests.post(f'{API_BASE_URL}/fanapi/generate', headers={'Authorization': api_key}, params={'user_id': user_id})
