@@ -4,7 +4,7 @@
 
 **Техническая документация API FanAPI**
 
-**Базовый URL API:** `https://7a05-77-50-109-213.ngrok-free.app`
+**Базовый URL API:** `https://eea1-77-50-109-213.ngrok-free.app`
 
 ### Методы API
 
